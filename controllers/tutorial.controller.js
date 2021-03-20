@@ -1,10 +1,7 @@
 const db = require('../models');
 const Tutorial = db.tutorials;
+require("dotenv-safe").config();
 const jwt = require('jsonwebtoken');
-
-
-const SECRET = "myapplication";
-
 //create and save a new tutorial
 exports.create = (req, res) => {
     //Validate request
@@ -117,7 +114,7 @@ exports.findAll = (req, res) => {
 exports.login = (req, res) => {
     if(req.body.user === 'Tozzi' && req.body.password === '12345'){
         const id = 1;
-        const token = jwt.sign({ id }, SECRET, {
+        const token = jwt.sign({ id }, process.env.SECRET, {
             expiresIn: 300
         });
         return res.json({ auth: true, token : token });
